@@ -24,6 +24,6 @@ async def get_songs(session: AsyncSession = Depends(get_session)):
 async def add_song(song: SongCreate, session: AsyncSession = Depends(get_session)):
     song = Song(name=song.name, artist=song.artist, year=song.year)
     session.add(song)
-    await session.commit()
+    await session.flush()
     await session.refresh(song)
     return song
