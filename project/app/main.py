@@ -17,7 +17,7 @@ async def pong():
 async def get_songs(session: AsyncSession = Depends(get_session)):
     result = await session.execute(select(Song))
     songs = result.scalars().all()
-    return [Song(name=song.name, artist=song.artist, year=song.year, id=song.id) for song in songs]
+    return [Song(name=song.name, artist=song.artist, year=song.year or 0, id=song.id) for song in songs]
 
 
 @app.post("/songs")
